@@ -1,0 +1,81 @@
+type (
+	AddReq {
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+
+	AddReply {
+		Id          int64  `json:"id"`
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+	GetInfoReq {
+		Id int64 `json:"id"`
+	}
+
+	GetInfoReply {
+		Id          int64  `json:"id"`
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+	UpdateReq {
+		Id          int64  `json:"id"`
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+
+	UpdateReply {
+		Id          int64  `json:"id"`
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+	Book {
+		Id          int64  `json:"id"`
+		Plu         string `json:"plu"`
+		Sku         string `json:"sku"`
+		Name        string `json:"name"`
+		Image       string `json:"image"`
+		Description string `json:"description"`
+		InStocked   string `json:"in_stocked"`
+	}
+	SearchReq {
+		Keyword string `json:"keyword"`
+	}
+
+	SearchReply {
+		Books   []*Book `json:"books"`
+		IsEnd   bool    `json:"is_end"`
+		LastVal int64   `json:"last_val"`
+	}
+)
+
+service book-api{
+	@handler Add
+	post /book/add (AddReq) returns (AddReply)
+	@handler GetInfo
+	post /book/getprofile (GetInfoReq) returns (GetInfoReply)
+	@handler Update
+	post /book/update (UpdateReq) returns (UpdateReply)
+	@handler Search
+	post /book/search (SearchReq) returns (SearchReply)
+}
