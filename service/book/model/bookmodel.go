@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -12,7 +14,8 @@ type (
 	// and implement the added methods in customBookModel.
 	BookModel interface {
 		bookModel
-		//FindByKeyword(keyword string, page string, pageSize string, orderBy string) error
+		FindByKeyword(keyword string, page int64, pageSize int64, orderBy string) (*[]Book, error)
+		//Query(pos int, limit int) (*[]Book, error)
 	}
 
 	customBookModel struct {
@@ -27,27 +30,41 @@ func NewBookModel(conn sqlx.SqlConn, c cache.CacheConf) BookModel {
 	}
 }
 
-// func FindByKeyword(keyword string, page, pageSize int64, orderBy string) error {
+func (m *defaultBookModel) FindByKeyword(keyword string, page int64, pageSize int64, orderBy string) (*[]Book, error) {
 
-// 	// if orderBy == "" {
-// 	// 	orderBy = "id"
-// 	// }
+	if orderBy == "" {
+		orderBy = "id"
+	}
 
-// 	// if page < 1 {
-// 	// 	page = 1
-// 	// }
-// 	// if pageSize < 1 {
-// 	// 	pageSize = 20
-// 	// }
-// 	// offset := (page - 1) * pageSize
-// 	// var resp []Book
-// 	// query := fmt.Sprintf("select %s from %s where `id` > %d limit %d", bookRows, m.table, offset, pageSize)
-// 	// err := m.QueryRowNoCache(&resp, query)
-// 	// switch err {
-// 	// case nil:
-// 	// 	return &resp, nil
-// 	// default:
-// 	// 	return nil, err
-// 	// }
-// 	return err
+	if page < 1 {
+		page = 1
+	}
+	if pageSize < 1 {
+		pageSize = 20
+	}
+	offset := (page - 1) * pageSize
+	var resp []Book
+	query := fmt.Sprintf("select %s from %s where `id` > %d order by %s limit %d", bookRows, m.table, offset, orderBy, pageSize)
+	err := m.QueryRowsNoCache(&resp, query)
+	switch err {
+	case nil:
+		return &resp, nil
+	default:
+		return nil, err
+	}
+}
+
+// func (m *defaultBookModel) Query(pos int, limit int) (*[]Book, error) {
+// 	var result []Book
+// 	query := fmt.Sprintf("select %s from %s where (`id` > %d) limit %d",
+// 		bookRows, m.table, pos, limit)
+// 	err := m.QueryRowsNoCache(&result, query)
+// 	switch err {
+// 	case nil:
+// 		return &result, nil
+// 	case sqlc.ErrNotFound:
+// 		return nil, ErrNotFound
+// 	default:
+// 		return nil, err
+// 	}
 // }
