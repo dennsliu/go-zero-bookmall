@@ -66,13 +66,13 @@ type Book struct {
 
 type SearchReq struct {
 	Keyword string `json:"keyword"`
-	Page string `json:"page"`
-	PageSize string `json:"pagesize"`
+	Page int64 `json:"page"`
+	PageSize int64 `json:"pagesize"`
 	OrderBy string `json:"orderby"`
 }
 
 type SearchReply struct {
-	Books   []*Book `json:"books"`
+	Books   []Book `json:"books"`
 	IsEnd   bool    `json:"is_end"`
 	LastVal int64   `json:"last_val"`
 }

@@ -60,10 +60,13 @@ type (
 	}
 	SearchReq {
 		Keyword string `json:"keyword"`
+		Page int64 `json:"page"`
+		PageSize int64 `json:"pagesize"`
+		OrderBy string `json:"orderby"`
 	}
 
 	SearchReply {
-		Books   []*Book `json:"books"`
+		Books   []Book `json:"books"`
 		IsEnd   bool    `json:"is_end"`
 		LastVal int64   `json:"last_val"`
 	}

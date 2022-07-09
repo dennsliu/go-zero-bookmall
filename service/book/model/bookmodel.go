@@ -42,10 +42,11 @@ func (m *defaultBookModel) FindByKeyword(keyword string, page int64, pageSize in
 	if pageSize < 1 {
 		pageSize = 20
 	}
-	offset := (page - 1) * pageSize
 	var resp []Book
-	query := fmt.Sprintf("select %s from %s where `id` > %d order by %s limit %d", bookRows, m.table, offset, orderBy, pageSize)
+	query := fmt.Sprintf("select %s from %s order by %s limit %d", bookRows, m.table, orderBy, pageSize)
 	err := m.QueryRowsNoCache(&resp, query)
+	fmt.Println(err)
+	fmt.Println(resp)
 	switch err {
 	case nil:
 		return &resp, nil

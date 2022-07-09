@@ -129,3 +129,27 @@ $ curl -i -X POST \
     "email":"6666@testing.com",
     "gender":"male"
 }'
+
+
+curl -i -X POST \
+  http://127.0.0.1:8888/book/search \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "keyword":"te",
+    "page":1,
+    "pagesize":20,
+    "orderby":"id"
+}'
+
+
+curl -i -X POST \
+  http://127.0.0.1:8888/book/add \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "plu":"plu2",
+    "sku":"sku2",
+    "name":"testing2",
+    "image":"image2",
+    "description":"image2",
+    "in_stocked":"1"
+}'
