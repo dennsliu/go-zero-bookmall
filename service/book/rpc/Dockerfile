@@ -29,3 +29,5 @@ COPY --from=builder /app/book /app/book
 COPY --from=builder /app/etc /app/etc
 
 CMD ["./book", "-f", "etc/book.yaml"]
+
+#etcdctl endpoint health --endpoints=[127.0.0.1:2379]

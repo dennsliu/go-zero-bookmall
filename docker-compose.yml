@@ -12,14 +12,14 @@ services:
       mallv1:
         ipv4_address: 172.18.11.2
     environment:
-      - PARAMS=--registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8080 --registry etcd --registry_address etcd:2379
     restart: always
     links:
       - etcd:etcd
   service.userrpc:
     build:
       context: ./
-      dockerfile: ./service/book/rpc/Dockerfile
+      dockerfile: ./service/user/rpc/Dockerfile
     container_name: service.userrpc
     ports:
       - "8081:8081"
@@ -28,7 +28,7 @@ services:
         ipv4_address: 172.18.11.3
     environment:
       #- PARAMS=--registry etcd --registry_address etcd:2379
-      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8081 --registry etcd --registry_address etcd:2379
     restart: always
     links:
       - etcd:etcd
@@ -44,7 +44,7 @@ services:
         ipv4_address: 172.18.11.4
     environment:
       #- PARAMS=--registry etcd --registry_address etcd:2379
-      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8082 --registry etcd --registry_address etcd:2379
     restart: always
     links:
       - etcd:etcd
@@ -60,7 +60,7 @@ services:
         ipv4_address: 172.18.11.5
     environment:
       #- PARAMS=--registry etcd --registry_address etcd:2379
-      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8083 --registry etcd --registry_address etcd:2379
     restart: always
     links:
       - etcd:etcd
@@ -85,13 +85,16 @@ services:
     restart: always
 
   etcd-manage:
-    image: evildecay/etcdkeeper
+    image: rustyx/etcdv3-browser
     container_name: etcd-manage
     environment:
       TZ: "Asia/Shanghai"
       HOST: "0.0.0.0"
+      ETCD: etcd:2379
+      CORS: "http://localhost:7000,http://localhost:8081"
+      EDITABLE: 1
     ports:
-      - "7000:8080" # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
+      - "7000:8081" # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
     depends_on:
       # 依赖容器
       - etcd # 在 etcd 服务容器启动后启动
