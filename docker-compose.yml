@@ -22,7 +22,7 @@ services:
       dockerfile: ./book/rpc/Dockerfile
     container_name: service.userrpc
     ports:
-      - "8888:8888"
+      - "8081:8081"
     networks:
       mallv1:
         ipv4_address: 172.18.11.3
@@ -38,7 +38,7 @@ services:
       dockerfile: ./book/api/Dockerfile
     container_name: service.order
     ports:
-      - "8888:8888"
+      - "8082:8082"
     networks:
       mallv1:
         ipv4_address: 172.18.11.4
@@ -54,7 +54,7 @@ services:
       dockerfile: ./book/rpc/Dockerfile
     container_name: service.bookrpc
     ports:
-      - "8888:8888"
+      - "8083:8083"
     networks:
       mallv1:
         ipv4_address: 172.18.11.5

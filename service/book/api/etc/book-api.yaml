@@ -1,6 +1,6 @@
 Name: book-api
 Host: 0.0.0.0
-Port: 8888
+Port: 8082
 Mysql:
   DataSource: root:123456789@tcp(127.0.0.1:3306)/bookmall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
