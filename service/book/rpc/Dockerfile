@@ -14,8 +14,8 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
-COPY book/rpc/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/book book/rpc/book.go
+COPY service/book/rpc/etc /app/etc
+RUN go build -ldflags="-s -w" -o /app/book service/book/rpc/book.go
 
 
 FROM scratch

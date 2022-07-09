@@ -14,8 +14,8 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
-COPY user/api/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/user user/api/user.go
+COPY service/user/api/etc /app/etc
+RUN go build -ldflags="-s -w" -o /app/user service/user/api/user.go
 
 
 FROM scratch
@@ -28,4 +28,4 @@ WORKDIR /app
 COPY --from=builder /app/user /app/user
 COPY --from=builder /app/etc /app/etc
 
-CMD ["./user", "-f", "etc/user.yaml"]
+CMD ["./user", "-f", "etc/user-api.yaml"]

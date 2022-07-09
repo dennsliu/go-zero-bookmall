@@ -4,7 +4,7 @@ services:
   service.user:
     build:
       context: ./
-      dockerfile: ./user/api/Dockerfile
+      dockerfile: ./service/user/api/Dockerfile
     container_name: service.user
     ports:
       - "8080:8080"
@@ -19,7 +19,7 @@ services:
   service.userrpc:
     build:
       context: ./
-      dockerfile: ./book/rpc/Dockerfile
+      dockerfile: ./service/book/rpc/Dockerfile
     container_name: service.userrpc
     ports:
       - "8081:8081"
@@ -35,8 +35,8 @@ services:
   service.book:
     build:
       context: ./
-      dockerfile: ./book/api/Dockerfile
-    container_name: service.order
+      dockerfile: ./service/book/api/Dockerfile
+    container_name: service.book
     ports:
       - "8082:8082"
     networks:
@@ -51,7 +51,7 @@ services:
   service.bookrpc:
     build:
       context: ./
-      dockerfile: ./book/rpc/Dockerfile
+      dockerfile: ./service/book/rpc/Dockerfile
     container_name: service.bookrpc
     ports:
       - "8083:8083"

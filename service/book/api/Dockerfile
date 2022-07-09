@@ -14,8 +14,8 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
-COPY book/api/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/book book/api/book.go
+COPY service/book/api/etc /app/etc
+RUN go build -ldflags="-s -w" -o /app/book service/book/api/book.go
 
 
 FROM scratch
@@ -28,4 +28,4 @@ WORKDIR /app
 COPY --from=builder /app/book /app/book
 COPY --from=builder /app/etc /app/etc
 
-CMD ["./book", "-f", "etc/book.yaml"]
+CMD ["./book", "-f", "etc/book-api.yaml"]
