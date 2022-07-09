@@ -153,3 +153,13 @@ curl -i -X POST \
     "description":"image2",
     "in_stocked":"1"
 }'
+
+
+book rpc服务
+book.proto文件，增加getBook方法
+
+写入ptoto代码,注意： 每一个 *.proto文件只允许有一个service error: only one service expected
+生成rpc代码：
+goctl rpc protoc book.proto --go_out=./types --go-grpc_out=./types --zrpc_out=.
+
+

@@ -1,0 +1,17 @@
+syntax="proto3";
+package book;
+option go_package="./book";
+message IdRequest{
+    string id=1;
+}
+message BookResponse{
+    string id=1;
+    string plu=2;
+    string sku=3;
+    string name=4;
+    string description=5;
+    string instock=6;
+}
+service Book{
+    rpc getBook(IdRequest) returns(BookResponse);
+}

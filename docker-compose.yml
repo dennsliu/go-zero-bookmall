@@ -1,0 +1,112 @@
+version: '3.5'
+# 服务容器配置
+services:
+  service.user:
+    build:
+      context: ./
+      dockerfile: ./user/api/Dockerfile
+    container_name: service.user
+    ports:
+      - "8080:8080"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.2
+    environment:
+      - PARAMS=--registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
+  service.userrpc:
+    build:
+      context: ./
+      dockerfile: ./book/rpc/Dockerfile
+    container_name: service.userrpc
+    ports:
+      - "8888:8888"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.3
+    environment:
+      #- PARAMS=--registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
+  service.book:
+    build:
+      context: ./
+      dockerfile: ./book/api/Dockerfile
+    container_name: service.order
+    ports:
+      - "8888:8888"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.4
+    environment:
+      #- PARAMS=--registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
+  service.bookrpc:
+    build:
+      context: ./
+      dockerfile: ./book/rpc/Dockerfile
+    container_name: service.bookrpc
+    ports:
+      - "8888:8888"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.5
+    environment:
+      #- PARAMS=--registry etcd --registry_address etcd:2379
+      - PARAMS=-p 8888 --registry etcd --registry_address etcd:2379
+    restart: always
+    links:
+      - etcd:etcd
+  etcd:
+    # 自定义容器名称
+    image: bitnami/etcd
+    container_name: etcd
+    environment:
+      TZ: "Asia/Shanghai"
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      #- ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      #- ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379
+      ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCDCTL_API: 2
+    ports:
+      # 设置端口映射 Etcd 服务映射宿主机端口号，可在宿主机127.0.0.1:2379访问
+      - "2379:2379"
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.6
+    restart: always
+
+  etcd-manage:
+    image: evildecay/etcdkeeper
+    container_name: etcd-manage
+    environment:
+      TZ: "Asia/Shanghai"
+      HOST: "0.0.0.0"
+    ports:
+      - "7000:8080" # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
+    depends_on:
+      # 依赖容器
+      - etcd # 在 etcd 服务容器启动后启动
+    networks:
+      mallv1:
+        ipv4_address: 172.18.11.7
+    restart: always
+    links:
+      - etcd:etcd
+# 网络配置
+networks:
+  mallv1:
+    name: mallv1
+    driver: bridge # 设置网络模式
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
