@@ -2,9 +2,9 @@ Name: user-api
 Host: 0.0.0.0
 Port: 8080
 Mysql:
-  DataSource: root:123456789@tcp(127.0.0.1:3306)/bookmall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:123456789@tcp(172.18.11.8:3306)/bookmall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
-  - Host: 172.18.11.6:6379
+  - Host: 172.18.11.9:6379
     Type: node
 Auth:
   AccessSecret: ad879037-c7a4-4063-9236-6bfc35d44b6d

@@ -7,8 +7,5 @@ CREATE TABLE `user` (
     `gender` char(5)  NOT NULL COMMENT '男｜女｜未公开',
     `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `number_unique` (`number`)
-    UNIQUE KEY `number_unique` (`username`)
-    UNIQUE KEY `number_unique` (`email`)
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 ;

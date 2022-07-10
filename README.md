@@ -113,7 +113,7 @@ $ vim service/user/api/internal/logic/loginlogic.go
 
 
 $ curl -i -X POST \
-  http://127.0.0.1:8888/user/login \
+  http://127.0.0.1:8080/user/login \
   -H 'Content-Type: application/json' \
   -d '{
     "username":"666",
@@ -121,7 +121,7 @@ $ curl -i -X POST \
 }'
 
 $ curl -i -X POST \
-  http://127.0.0.1:8888/user/signup \
+  http://127.0.0.1:8080/user/signup \
   -H 'Content-Type: application/json' \
   -d '{
     "username":"6666",
@@ -132,7 +132,7 @@ $ curl -i -X POST \
 
 
 curl -i -X POST \
-  http://127.0.0.1:8888/book/search \
+  http://127.0.0.1:8082/book/search \
   -H 'Content-Type: application/json' \
   -d '{
     "keyword":"te",
@@ -143,7 +143,7 @@ curl -i -X POST \
 
 
 curl -i -X POST \
-  http://127.0.0.1:8888/book/add \
+  http://127.0.0.1:8082/book/add \
   -H 'Content-Type: application/json' \
   -d '{
     "plu":"plu2",

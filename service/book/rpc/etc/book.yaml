@@ -1,6 +1,6 @@
 Name: book.rpc
-ListenOn: 127.0.0.1:8083
+ListenOn: 0.0.0.0:8083
 Etcd:
   Hosts:
-  - 172.18.11.6:2379
+    - etcd:2379
   Key: book.rpc
