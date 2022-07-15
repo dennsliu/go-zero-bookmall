@@ -58,3 +58,15 @@ local.properties
 /container/mysql/data/
 /container/mysql/logs/
 container/mysql/data
+
+/container/elasticsearch/data
+/container/elasticsearch/log
+/container/elasticsearch/plugins
+/container/grafana/data
+/container/prometheus/data
+
+container/elasticsearch/data
+container/elasticsearch/log
+container/elasticsearch/plugins
+container/grafana/data
+container/prometheus/data

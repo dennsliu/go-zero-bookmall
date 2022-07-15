@@ -14,3 +14,15 @@ UserRpc:
     Hosts:
       - etcd:2379
     Key: user.rpc
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4003
+  Path: /metrics
+
+#链路追踪
+Telemetry:
+  Name: book-api
+  Endpoint: http://jaeger-collector:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger    

@@ -1,0 +1,39 @@
+global:
+  scrape_interval:
+  external_labels:
+    monitor: 'codelab-monitor'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s  #global catch time
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+
+  - job_name: 'user-api'
+    static_configs:
+      - targets: [ 'service.user:4001' ]
+        labels:
+          job: user-api
+          app: user-api
+          env: dev
+  - job_name: 'user.rpc'
+    static_configs:
+      - targets: [ 'service.userrpc:4002' ]
+        labels:
+          job: ser.rpc
+          app: ser.rpc
+          env: dev
+  - job_name: 'book-api'
+    static_configs:
+      - targets: [ 'service.book:4003' ]
+        labels:
+          job: book-api
+          app: book-api
+          env: dev
+  - job_name: 'book.rpc'
+    static_configs:
+      - targets: [ 'service.bookrpc:4004' ]
+        labels:
+          job: book.rpc
+          app: book.rpc
+          env: dev

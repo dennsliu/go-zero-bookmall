@@ -146,11 +146,11 @@ curl -i -X POST \
   http://127.0.0.1:8082/book/add \
   -H 'Content-Type: application/json' \
   -d '{
-    "plu":"plu2",
-    "sku":"sku2",
-    "name":"testing2",
-    "image":"image2",
-    "description":"image2",
+    "plu":"plu4",
+    "sku":"sku4",
+    "name":"testing4",
+    "image":"image4",
+    "description":"image4",
     "in_stocked":"1"
 }'
 
